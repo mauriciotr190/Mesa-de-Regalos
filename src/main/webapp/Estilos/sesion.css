@@ -1,0 +1,103 @@
+body {
+  margin: 0;
+  font-family: arial, sans-serif;
+  background-color: #cde9fe;
+  color: #333;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.container h1 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #128ff3;
+}
+
+.inSect {
+  display: block;
+  width: 97%;
+  margin: 10px 0;
+  padding: 10px 0 10px 5px;
+  background-color: #ffffff;
+  color: #000;
+  border-radius: 1rem;
+  border-color: #42a5f5;
+  font-size: medium;
+  text-align: start;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #69bafc;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #34a5ff;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Estilos para los inputs tipo radio */
+input[type="radio"] {
+  accent-color: #42a5f5;
+  margin-right: 5px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+label {
+  font-size: 0.94em;
+  color: #333;
+  margin-right: 10px;
+  cursor: pointer;
+  vertical-align: left;
+  display: inline-block;
+}
+
+input[type="radio"]:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+input[type="radio"]:checked {
+  accent-color: #128ff3;
+}
+
+/* Estilos para alinear el texto con el radio input */
+.radio-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 10px;
+}

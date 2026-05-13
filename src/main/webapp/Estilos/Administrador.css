@@ -1,0 +1,93 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+
+.admin-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1,
+h2 {
+  color: #333;
+}
+
+.admin-form {
+  background: #ffffff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.admin-form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.admin-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.admin-form button {
+  background-color: #42a5f5;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.admin-form button:hover {
+  background-color: #007bbf;
+}
+
+.admin-products {
+  background: #ffffff;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.product-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background: #f9f9f9;
+  width: 200px;
+  text-align: center;
+}
+
+.product-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.product-item button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #d9534f;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.product-item button:hover {
+  background-color: #c9302c;
+}

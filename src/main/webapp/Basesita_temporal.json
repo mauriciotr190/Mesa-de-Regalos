@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "nombre": "Juego de Copas de Cristal",
+    "categoria": "Boda",
+    "precio": 1200.5,
+    "descripcion": "Elegante juego de copas de cristal para celebraciones especiales.",
+    "disponible": true,
+    "imagen": "imagenes/Gatitos_Prueba/gatito1.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Osito de Peluche",
+    "categoria": "Infantiles",
+    "precio": 350.0,
+    "descripcion": "Peluche suave y seguro, ideal para bebés y niños pequeños.",
+    "disponible": false,
+    "imagen": "imagenes/Gatitos_Prueba/gatito2.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Reloj de Pulsera",
+    "categoria": "Para él",
+    "precio": 2500.0,
+    "descripcion": "Reloj moderno con correa de cuero y diseño minimalista.",
+    "disponible": true,
+    "imagen": "imagenes/Gatitos_Prueba/gatito3.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Gatitos de compañia",
+    "categoria": "Cumpleaños",
+    "precio": 1200.5,
+    "descripcion": "Un Gatito chistoso para todos los niños",
+    "disponible": true,
+    "imagen": "imagenes/Gatitos_Prueba/gatito3.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Deberia de ser un perrito",
+    "categoria": "XV años",
+    "precio": 1200.5,
+    "descripcion": "Para todas las jovencitas que adoran los gatitos.",
+    "disponible": false,
+    "imagen": "imagenes/Gatitos_Prueba/gatito1.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Otro gatito",
+    "categoria": "Para ella",
+    "precio": 1200.5,
+    "descripcion": "Descripcion de un gatito",
+    "disponible": false,
+    "imagen": "imagenes/Gatitos_Prueba/gatito2.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "Miau",
+    "categoria": "XV años",
+    "precio": 1200.5,
+    "descripcion": "Un gato",
+    "disponible": false,
+    "imagen": "imagenes/Gatitos_Prueba/gatito1.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Miau",
+    "categoria": "Gato",
+    "precio": 12000,
+    "descripcion": "Otro Gato",
+    "disponible": false,
+    "imagen": "imagenes/Gatitos_Prueba/gatito2.jpg"
+  }
+]

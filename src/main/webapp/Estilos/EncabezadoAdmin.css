@@ -1,0 +1,62 @@
+/*cabecera++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+.general {
+  color: white;
+  font-size: 1.5rem;
+  line-height: 1.6em;
+  margin: 0;
+}
+.contenedor {
+  width: 85%;
+  margin: 0 auto;
+}
+.header {
+  display: flex;
+  background: #42a5f5;
+  color: white;
+  padding: 1rem 0;
+}
+.header a {
+  color: #363434;
+  text-decoration: none;
+}
+.logo-nav-contenedor {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+.navegacion ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.navegacion ul li {
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+.navegacion ul li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.2s linear;
+  border-radius: 15px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+.navegacion ul li a:hover {
+  background: #008bfd;
+}
+
+/*logo*/
+.capi {
+  height: 90px;
+  margin-right: 1rem;
+}
+
+.logo-nav-contenedor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

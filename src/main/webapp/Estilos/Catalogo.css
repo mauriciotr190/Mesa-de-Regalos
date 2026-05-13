@@ -1,0 +1,150 @@
+/* Estilo general */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+header {
+  /*background-color: #007bff;*/
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 1.5em;
+  width: 100%;
+}
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las tarjetas se ajusten a una nueva fila */
+  gap: 20px; /* Espaciado entre tarjetas */
+  justify-content: center; /* Centra las tarjetas horizontalmente */
+  padding: 20px;
+}
+
+.product-container2 {
+/*  display: flex;
+  flex-wrap: wrap; !* Permite que las tarjetas se ajusten a una nueva fila *!*/
+  gap: 20px; /* Espaciado entre tarjetas */
+  justify-content: left; /* Centra las tarjetas horizontalmente */
+  padding: 20px;
+}
+
+/* Estilo de las tarjetas */
+.product-card {
+  width: calc(25% - 20px); /* 25% para 4 tarjetas por fila, restando el gap */
+  max-width: 250px; /* Tamaño máximo de cada tarjeta */
+  min-width: 200px; /* Tamaño mínimo para mantener un diseño consistente */
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%; /* Imagen circular */
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.product-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.product-category {
+  font-size: 0.9em;
+  color: #555;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  font-size: 0.85em;
+  color: #777;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.product-price {
+  font-size: 1em;
+  font-weight: bold;
+  color: #28a745;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.add-to-cart-btn {
+  padding: 10px 15px;
+  font-size: 0.9em;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #218838;
+  transform: scale(1.1);
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.add-to-cart-btn2 {
+  padding: 10px 15px;
+  font-size: 0.9em;
+  color: #fff;
+  background-color: #c23434;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-to-cart-btn2:hover {
+  background-color: #872424;
+  transform: scale(1.1);
+}
+
+.add-to-cart-btn2:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.micontainer{
+  display: flex;
+  flex-wrap: wrap; /* Permite que las tarjetas se ajusten a una nueva fila */
+  gap: 20px; /* Espaciado entre tarjetas */
+  justify-content: center; /* Centra las tarjetas horizontalmente */
+  padding: 20px;
+}
+
+.fullfe{
+  width: 100%;
+}

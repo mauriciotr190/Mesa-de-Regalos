@@ -1,0 +1,87 @@
+/* CSS para la página de presentación */
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f8f9fa; /* Gris claro */
+  color: #333;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+section.info {
+  flex: 2; /* Ocupa más espacio que el menú */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-right: 20px; /* Espaciado entre el contenido y el menú */
+}
+
+aside.sidebar {
+  flex: 1; /* Menú ocupa menos espacio */
+  background-color: #e9ecef; /* Gris claro */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 20px; /* Menú flotante */
+  height: fit-content;
+}
+
+aside.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+aside.sidebar ul li {
+  margin: 10px 0;
+}
+
+aside.sidebar ul li a {
+  text-decoration: none;
+  color: #343a40; /* Gris oscuro */
+  font-weight: bold;
+  transition: color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+aside.sidebar ul li a:hover {
+  color: #007bff; /* Azul al pasar el mouse */
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+}
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  section.info {
+    margin-right: 0;
+  }
+
+  aside.sidebar {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+.boda {
+  height: 400px;
+}
+.XV {
+  height: 350px;
+}
+.Bautizo {
+  height: 300px;
+}
+
+html {
+  scroll-behavior: smooth;
+}

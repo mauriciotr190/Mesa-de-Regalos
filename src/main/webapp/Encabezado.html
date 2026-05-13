@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menú dinámico</title>
+    <link href="Estilos/Encabezado.css" rel="stylesheet" />
+    <link href="Estilos/EncabezadoAdmin.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Menú de usuario normal -->
+    <header id="menuUsuario" class="header" style="display: none">
+      <div class="contenedor logo-nav-contenedor">
+        <label
+          ><a href="menu.jsp" class="logo">
+            <img class="capi" src="imagenes/Regalos y Eventos.jpg" /> </a
+        ></label>
+        <nav class="navegacion">
+          <ul>
+            <li><a href="menu.jsp">Inicio</a></li>
+            <li><a href="Catalogo.jsp">Catálogo</a></li>
+            <li><a href="Inicio_sesion.jsp">Iniciar sesión</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Menú de administrador -->
+    <header id="menuAdmin" class="header" style="display: none">
+      <div class="contenedor logo-nav-contenedor">
+        <label
+          ><a href="menu.jsp" class="logo">
+            <img class="capi" src="imagenes/Regalos y Eventos.jpg" /> </a
+        ></label>
+        <nav class="navegacion">
+          <ul>
+            <li><a href="menu.jsp">Inicio</a></li>
+            <li><a href="Catalogo_Admin_Modif.jsp">Gestión de productos</a></li>
+            <li><a href="Listas_Admin.jsp">Gestion de listas</a></li>
+            <li><a href="Cerrar_sesion.jsp">Cerrar sesión</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Menú de anfitrion -->
+    <header id="menuAnfi" class="header" style="display: none">
+      <div class="contenedor logo-nav-contenedor">
+        <label
+          ><a href="menu.jsp" class="logo">
+            <img class="capi" src="imagenes/Regalos y Eventos.jpg" /> </a
+        ></label>
+        <nav class="navegacion">
+          <ul>
+            <li><a href="menu.jsp">Inicio</a></li>
+            <li><a href="Catalogo.jsp">Catálogo</a></li>
+            <li><a href="Estavaparalocalstorage.jsp">Mi lista</a></li>
+            <li><a href="Cerrar_sesion.jsp">Cerrar sesión</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!--    <script src="Scripts/MenuDinamico.js"></script>-->
+  </body>
+</html>
