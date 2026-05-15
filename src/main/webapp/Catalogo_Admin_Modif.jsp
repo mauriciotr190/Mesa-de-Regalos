@@ -59,6 +59,7 @@
                 id="product-price"
                 placeholder="Ej. 199.99"
                 step="0.01"
+                min="1"
                 name="precio"
                 required
             />
@@ -70,6 +71,7 @@
                         id="product-quantity"
                         placeholder="Ej. 5"
                         step="0.01"
+                        min="0"
                         name="hay"
                         required
                 />

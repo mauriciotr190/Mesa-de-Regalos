@@ -35,10 +35,16 @@ function mostrarMenuPorRol() {
     // if (menuUsuario) menuUsuario.style.display = "none";
     menuAdmin.style.display = "flex";
     menuUsuario.style.display = "none";
-  } else if (rolUsuario === "anfitrion" || rolUsuario === "invitado") {
+  } else if (rolUsuario === "anfitrion") {
     // if (menuUsuario) menuUsuario.style.display = "flex";
     // if (menuAdmin) menuAdmin.style.display = "none";
     menuAnfi.style.display = "flex";
     menuUsuario.style.display = "none";
+  } else if (rolUsuario === "invitado") {
+    // if (menuUsuario) menuUsuario.style.display = "flex";
+    // if (menuAdmin) menuAdmin.style.display = "none";
+    menuInvi.style.display = "flex";
+    menuUsuario.style.display = "none";
   }
+   
 }

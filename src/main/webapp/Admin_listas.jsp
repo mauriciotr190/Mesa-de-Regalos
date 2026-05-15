@@ -28,10 +28,11 @@
 
         try {
           bd.conectar();
-          String strQry = "select imagen, nombre, categoria, descripcion from producto " +
-                  "natural join producto_lista " +
-                  "where id_usuario = '"+iduser+"';";
-
+          String strQry = "SELECT p.imagen, p.nombre, p.categoria, p.descripcion " +
+        "FROM lista l " +
+        "INNER JOIN producto_lista pl ON l.id_lista = pl.id_lista " +
+        "INNER JOIN producto p ON pl.id_regalo = p.id_regalo " +
+        "WHERE l.id_usuario = '" + iduser + "';";
           ResultSet rs = null;
 
           rs = bd.consulta(strQry);

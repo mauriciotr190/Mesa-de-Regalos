@@ -25,9 +25,12 @@
 
           try {
             bd.conectar();
-            String strQry = "select nombre, count(producto_lista.id_usuario), producto_lista.id_usuario from producto_lista " +
-                    "natural join usuario " +
-                    "group by producto_lista.id_usuario;";
+            String strQry = "SELECT u.nombre, l.id_lista, l.id_usuario, COUNT(pl.id_regalo) AS cantidad_regalos " +
+                "FROM lista l " +
+                "INNER JOIN usuario u ON l.id_usuario = u.id_usuario " +
+                "LEFT JOIN producto_lista pl ON l.id_lista = pl.id_lista " +
+                "GROUP BY l.id_lista, l.id_usuario, u.nombre " +
+                "HAVING COUNT(pl.id_regalo) > 0;";
 
             ResultSet rs = null;
 
@@ -37,14 +40,13 @@
         %>
 
         <div class="list-card">
-          <h3>Lista de: <%=rs.getString(1)%></h3>
-          <p>Cantidad de regalos: <%=rs.getString(2)%></p>
-          <a href="Admin_listas.jsp?id=<%=rs.getString(3)%>&name=<%=rs.getString(1)%>">
-            <button class="btn view-btn">Ver Detalles</button>
-          </a>
+            <h3>Lista de: <%=rs.getString("nombre")%></h3>
+            <p>Cantidad de regalos: <%=rs.getString("cantidad_regalos")%></p>
 
-<%--          <button class="btn delete-btn">Eliminar Lista</button>--%>
-        </div>
+            <a href="Admin_listas.jsp?id=<%=rs.getString("id_usuario")%>&idlista=<%=rs.getString("id_lista")%>&name=<%=rs.getString("nombre")%>">
+              <button class="btn view-btn">Ver Detalles</button>
+            </a>
+          </div>
 
         <%
             }

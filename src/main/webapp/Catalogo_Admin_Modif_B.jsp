@@ -30,9 +30,40 @@
 
             if (Objects.equals(opc, "eliminar")){
 
-                String strQry = "delete from producto where id_regalo = '" + idregalo + "';";
+                String guardarComprados =
+                    "INSERT INTO producto_comprado_backup " +
+                    "(id_regalo, id_lista, id_usuario_anfitrion, nombre, descripcion, precio, categoria, imagen) " +
+                    "SELECT p.id_regalo, pl.id_lista, l.id_usuario, p.nombre, p.descripcion, p.precio, p.categoria, p.imagen " +
+                    "FROM producto p " +
+                    "INNER JOIN producto_lista pl ON p.id_regalo = pl.id_regalo " +
+                    "INNER JOIN lista l ON pl.id_lista = l.id_lista " +
+                    "WHERE p.id_regalo = '" + idregalo + "' " +
+                    "AND pl.estado = 'comprado' " +
+                    "AND NOT EXISTS ( " +
+                    "   SELECT 1 FROM producto_comprado_backup pcb " +
+                    "   WHERE pcb.id_regalo = p.id_regalo " +
+                    "   AND pcb.id_lista = pl.id_lista " +
+                    ");";
 
-                bd.borrar(strQry);
+                bd.insertar(guardarComprados);
+
+                String borrarCarrito =
+                    "DELETE cp FROM carrito_producto cp " +
+                    "WHERE cp.id_regalo = '" + idregalo + "';";
+
+                bd.borrar(borrarCarrito);
+
+                String borrarLista =
+                    "DELETE FROM producto_lista " +
+                    "WHERE id_regalo = '" + idregalo + "';";
+
+                bd.borrar(borrarLista);
+
+                String borrarProducto =
+                    "DELETE FROM producto " +
+                    "WHERE id_regalo = '" + idregalo + "';";
+
+                bd.borrar(borrarProducto);
 
                 bd.cierraConexion();
                 response.sendRedirect("Catalogo_Admin_Modif_A.jsp?busqueda="+busqueda);

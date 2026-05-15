@@ -13,36 +13,130 @@
     <link rel="stylesheet" href="Estilos/Catalogo.css" />
   </head>
   <body>
-  <%
+<%
     String idusuario = request.getParameter("id");
-  %>
+    String msg = request.getParameter("msg");
+%>
+
     <!-- Encabezado -->
     <div id="EncabezadoId"></div>
     <script src="scripts/Encabezado.js"></script>
     <main>
       <!-- Sección para la lista de regalos seleccionados -->
-      <section id="lista-regalos">
-        <h2>Tu Lista de Regalos</h2>
-        <div class="micontainer">
+      
           <%
+        Base bd = new Base();
+        ArrayList<String> comp = new ArrayList<>();
 
-            Base bd = new Base();
-            ArrayList<String> comp = new ArrayList<>();
+        try {
+            bd.conectar();
 
-            try {
-              bd.conectar();
-              String strQry = "select imagen, nombre, categoria, descripcion, precio, id_regalo from producto_lista " +
-                      "natural join producto " +
-                      "where id_usuario = '"+idusuario+"';";
+            String idLista = "";
 
-              ResultSet rs = null;
+            String qryLista = "SELECT id_lista FROM lista WHERE id_usuario = " + idusuario;
+            ResultSet rsLista = bd.consulta(qryLista);
 
-              rs = bd.consulta(strQry);
+            if (rsLista.next()) {
+                idLista = rsLista.getString("id_lista");
+            } else {
+                String insertLista = "INSERT INTO lista(nombre, id_usuario) " +
+                                     "VALUES('Lista de regalos', " + idusuario + ")";
+                bd.insertar(insertLista);
 
-              while (rs.next()) {
-                comp.add(rs.getString(6));
+                rsLista = bd.consulta(qryLista);
+                if (rsLista.next()) {
+                    idLista = rsLista.getString("id_lista");
+                }
+            }
 
-          %>
+
+            %>
+
+    <section id="invitar-invitados">
+        <h2>Invitar invitados</h2>
+
+        <%
+        if ("noexiste".equals(msg)) {
+        %>
+            <p>No existe un usuario invitado con ese correo.</p>
+        <%
+        } else if ("repetido".equals(msg)) {
+        %>
+            <p>Ese invitado ya estaba agregado a tu lista.</p>
+        <%
+        } else if ("invitado".equals(msg)) {
+        %>
+            <p>Invitado agregado correctamente.</p>
+        <%
+        }
+        %>
+
+        <form method="post" action="Invitar_invitado_A.jsp?id=<%=idusuario%>&idlista=<%=idLista%>">
+            <label for="correoInvitado">Correo del invitado:</label>
+            <input 
+                type="email" 
+                id="correoInvitado" 
+                name="correoInvitado" 
+                placeholder="correo@ejemplo.com"
+                required
+            >
+
+            <button type="submit">Invitar</button>
+        </form>
+
+        <h3>Invitados actuales:</h3>
+
+        <%
+        String qryInvitados =
+            "SELECT u.nombre, u.correo " +
+            "FROM invitado_lista il " +
+            "INNER JOIN usuario u ON il.id_usuario = u.id_usuario " +
+            "WHERE il.id_lista = " + idLista + ";";
+
+        ResultSet rsInvitados = bd.consulta(qryInvitados);
+
+        boolean hayInvitados = false;
+
+        while (rsInvitados.next()) {
+            hayInvitados = true;
+        %>
+
+            <p><%=rsInvitados.getString("nombre")%> - <%=rsInvitados.getString("correo")%></p>
+
+        <%
+        }
+
+        if (!hayInvitados) {
+        %>
+
+            <p>No has invitado a ningún usuario.</p>
+
+        <%
+        }
+        %>
+    </section>
+
+    <section id="lista-regalos">
+    <h2>Tu Lista de Regalos</h2>
+    <div class="micontainer">
+
+    <%
+
+        String strQry = "SELECT p.imagen, p.nombre, p.categoria, p.descripcion, p.precio, p.id_regalo, pl.estado " +
+                        "FROM producto_lista pl " +
+                        "INNER JOIN producto p ON pl.id_regalo = p.id_regalo " +
+                        "WHERE pl.id_lista = " + idLista;
+
+        ResultSet rs = bd.consulta(strQry);
+
+        boolean listaVacia = true;
+
+        while (rs.next()) {
+            listaVacia = false;
+            comp.add(rs.getString(6));
+    %>
+
+
           <%--        <ul id="lista-seleccionados">--%>
           <%--          <!-- Aquí se mostrarán los regalos seleccionados -->--%>
           <%--        </ul>--%>
@@ -52,14 +146,72 @@
             <p class="product-category"><strong>Categoría:</strong> <%=rs.getString(3)%></p>
             <p class="product-description"><%=rs.getString(4)%></p>
             <p class="product-price"><strong>Precio:</strong> $<%=rs.getString(5)%></p>
-            <button class="add-to-cart-btn2" name="eliminar" id="button<%=rs.getString(6)%>" value="<%=rs.getString(6)%>">Eliminar</button>
+            <%
+            String estado = rs.getString("estado");
+
+            if ("comprado".equals(estado)) {
+            %>
+
+            <button class="add-to-cart-btn2" disabled>
+                Comprado
+            </button>
+
+            <%
+            } else {
+            %>
+
+            <button class="add-to-cart-btn2"
+                    name="eliminar"
+                    id="button<%=rs.getString(6)%>"
+                    value="<%=rs.getString(6)%>">
+                Eliminar
+            </button>
+
+            <%
+            }
+            %>
           </div>
 
           <%
-            }
-            //bd.cierraConexion();
+                }
 
-          %>
+
+            String qryBackup =
+                "SELECT imagen, nombre, categoria, descripcion, precio, id_regalo " +
+                "FROM producto_comprado_backup " +
+                "WHERE id_usuario_anfitrion = " + idusuario + " " +
+                "AND id_lista = " + idLista + ";";
+
+            ResultSet rsBackup = bd.consulta(qryBackup);
+
+            while (rsBackup.next()) {
+                listaVacia = false;
+            %>
+
+            <div class="product-card">
+                <img src="<%=rsBackup.getString("imagen")%>" alt="Producto comprado" class="product-image">
+                <h2 class="product-name"><%=rsBackup.getString("nombre")%></h2>
+                <p class="product-category"><strong>Categoría:</strong> <%=rsBackup.getString("categoria")%></p>
+                <p class="product-description"><%=rsBackup.getString("descripcion")%></p>
+                <p class="product-price"><strong>Precio:</strong> $<%=rsBackup.getString("precio")%></p>
+
+                <button class="add-to-cart-btn2" disabled>
+                    Comprado
+                </button>
+            </div>
+
+            <%
+            }
+            %>
+            <%
+            if (listaVacia) {
+            %>
+
+            <p>No hay regalos agregados a tu lista.</p>
+
+            <%
+            }
+            %>
         </div>
 
       </section>
@@ -133,13 +285,36 @@
             <h2 class="product-name"><%=rs2.getString(2)%></h2>
             <p class="product-category"><strong>Categoría:</strong> <%=rs2.getString(3)%></p>
             <p class="product-description"><%=rs2.getString(4)%></p>
-            <%if (comp.contains(rs2.getString(7))) { %>
-            <button class="add-to-cart-btn" name="add" id="buttonadd<%=rs2.getString(7)%>" value="<%=rs2.getString(7)%>" disabled>Ya agregado</button>
-            <%}else if (ex >= 1) { %>
-            <button class="add-to-cart-btn" name="add" id="buttonadd<%=rs2.getString(7)%>" value="<%=rs2.getString(7)%>">Agregar a lista</button>
-            <%} else {%>
-            <button class="add-to-cart-btn" name="add" id="buttonadd<%=rs2.getString(7)%>" value="<%=rs2.getString(7)%>" disabled>No disponible</button>
-            <%}%>
+            <% if (ex <= 0) { %>
+
+                <button class="add-to-cart-btn"
+                        name="add"
+                        id="buttonadd<%=rs2.getString(7)%>"
+                        value="<%=rs2.getString(7)%>"
+                        disabled>
+                    No disponible
+                </button>
+
+            <% } else if (comp.contains(rs2.getString(7))) { %>
+
+                <button class="add-to-cart-btn"
+                        name="add"
+                        id="buttonadd<%=rs2.getString(7)%>"
+                        value="<%=rs2.getString(7)%>"
+                        disabled>
+                    Ya agregado
+                </button>
+
+            <% } else { %>
+
+                <button class="add-to-cart-btn"
+                        name="add"
+                        id="buttonadd<%=rs2.getString(7)%>"
+                        value="<%=rs2.getString(7)%>">
+                    Agregar a lista
+                </button>
+
+            <% } %>
           </div>
 
         <%
@@ -166,7 +341,11 @@
 
               const form = document.createElement('form');
               form.method = 'POST';
-              form.action = 'Gestion_Anfi_lista_B.jsp?busqueda=<%=busqueda%>&id=<%=idusuario%>';
+
+              form.action = 'Gestion_Anfi_lista_B.jsp?id=<%=idusuario%>&busqueda=' 
+                            + encodeURIComponent('<%=busqueda%>') 
+                            + '&cat=' 
+                            + encodeURIComponent('<%=cat%>');
 
               const input = document.createElement('input');
               input.type = 'hidden';

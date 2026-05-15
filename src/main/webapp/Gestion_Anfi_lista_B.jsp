@@ -8,6 +8,7 @@
 <%@ page import="basesita.Base" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.util.Objects" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,49 +18,72 @@
 Si ves esto, hubo un error
 
 <%
+String iduser = request.getParameter("id");
+String busqueda = request.getParameter("busqueda");
+String idprod = request.getParameter("idprod");
+String opc = request.getParameter("opc");
+String cat = request.getParameter("cat");
 
-    String iduser = request.getParameter("id");
-    String busqueda = request.getParameter("busqueda");
-    String idprod = request.getParameter("idprod");
-    String opc = request.getParameter("opc");
-    String cat = request.getParameter("cat");
-    System.out.println("usuario: "+iduser);
-    System.out.println("producto: "+idprod);
-    System.out.println("opcion: "+opc);
+Base bd = new Base();
 
-    Base bd = new Base();
-    try {
-        bd.conectar();
+try {
+    bd.conectar();
 
-        if (Objects.equals(opc, "eliminar")){
+    String idLista = "";
 
-            String strQry = "delete from producto_lista where id_regalo = "+idprod+" and id_usuario = "+iduser+";";
+    String qryLista = "SELECT id_lista FROM lista WHERE id_usuario = " + iduser;
+    ResultSet rsLista = bd.consulta(qryLista);
 
-            bd.borrar(strQry);
+    if (rsLista.next()) {
+        idLista = rsLista.getString("id_lista");
+    } else {
+        String insertLista = "INSERT INTO lista(nombre, id_usuario) " +
+                             "VALUES('Lista de regalos', " + iduser + ")";
+        bd.insertar(insertLista);
 
-            bd.cierraConexion();
-
-            if (Objects.equals(busqueda, "mensajesecretoquetemandaalapaginainicial"))
-                response.sendRedirect("Gestion_Anfi_lista.jsp?id="+iduser);
-            else
-                response.sendRedirect("Gestion_Anfi_lista_A.jsp?nombre="+busqueda+"&id="+iduser+"&cat="+cat);
-
-        } else {
-
-            String strQry = "insert into producto_lista (id_regalo, id_usuario)"
-                    + "values('" + idprod + "', '" + iduser + "');";
-
-            int resultadoInsert = bd.insertar(strQry);
-
-            bd.cierraConexion();
-
-            response.sendRedirect("Gestion_Anfi_lista_A.jsp?busqueda="+busqueda+"&id="+iduser+"&cat="+cat);
+        rsLista = bd.consulta(qryLista);
+        if (rsLista.next()) {
+            idLista = rsLista.getString("id_lista");
         }
-
-    } catch (Exception ex) {
-        System.out.println(ex.getMessage());
     }
 
+    if (Objects.equals(opc, "eliminar")) {
+
+        String strQry = "DELETE FROM producto_lista " +
+                        "WHERE id_regalo = " + idprod +
+                        " AND id_lista = " + idLista;
+
+        bd.borrar(strQry);
+
+        bd.cierraConexion();
+
+        if (Objects.equals(busqueda, "mensajesecretoquetemandaalapaginainicial")) {
+            response.sendRedirect("Gestion_Anfi_lista.jsp?id=" + iduser);
+        } else {
+            String busquedaUrl = URLEncoder.encode(busqueda, "UTF-8");
+            String catUrl = URLEncoder.encode(cat, "UTF-8");
+
+            response.sendRedirect("Gestion_Anfi_lista_A.jsp?nombre=" + busquedaUrl + "&categoria=" + catUrl + "&id=" + iduser);
+        }
+
+    } else {
+
+        String strQry = "INSERT INTO producto_lista(id_regalo, id_lista) " +
+                        "VALUES(" + idprod + ", " + idLista + ")";
+
+        bd.insertar(strQry);
+
+        bd.cierraConexion();
+
+        String busquedaUrl = URLEncoder.encode(busqueda, "UTF-8");
+        String catUrl = URLEncoder.encode(cat, "UTF-8");
+
+        response.sendRedirect("Gestion_Anfi_lista_A.jsp?nombre=" + busquedaUrl + "&categoria=" + catUrl + "&id=" + iduser);
+    }
+
+} catch (Exception ex) {
+    System.out.println(ex.getMessage());
+}
 %>
 
 </body>

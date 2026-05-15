@@ -148,3 +148,29 @@ header {
 .fullfe{
   width: 100%;
 }
+
+
+.cart-summary {
+    width: 100%;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    text-align: right;
+    background-color: transparent;
+}
+
+.cart-summary h2 {
+    margin-bottom: 15px;
+}
+
+
+.success-message{
+    width: 100%;
+    text-align: center;
+    background: #d4edda;
+    color: #155724;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}

@@ -67,11 +67,7 @@
         <p class="product-category"><strong>Categoría:</strong> <%=rs.getString(3)%></p>
         <p class="product-description"><%=rs.getString(4)%></p>
         <p class="product-price"><strong>Precio:</strong> $<%=rs.getString(5)%></p>
-        <%if (ex >= 1) { %>
-        <button class="add-to-cart-btn" data-id="<%=rs.getString(7)%>">Disponible</button>
-        <%} else {%>
-        <button class="add-to-cart-btn" data-id="<%=rs.getString(7)%>" disabled>No disponible</button>
-        <%}%>
+        
       </div>
 
       <%

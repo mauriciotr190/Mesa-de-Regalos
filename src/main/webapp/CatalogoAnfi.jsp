@@ -1,6 +1,7 @@
 <%@ page import="basesita.Base" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.util.Objects" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +11,11 @@
     <title>Catálogo de Productos</title>
     <link rel="stylesheet" href="Estilos/Catalogo.css" />
   </head>
+  
+<%
+String idusuario = request.getParameter("id");
+%>
+
   <body>
     <!-- Encabezado -->
     <div id="EncabezadoId"></div>
@@ -17,7 +23,7 @@
     <main id="product-container" class="product-container">
       <div class="fullfe">
         <h2>Buscar Regalos</h2>
-        <form id="form-buscar" method="post" action="Catalogo_A.jsp">
+        <form id="form-buscar" method="post" action="CatalogoAnfi_A.jsp?id=<%=idusuario%>">
           <label for="categoria">Categoría:</label>
           <select id="categoria" name="categoria">
             <option value="">-- Seleccionar --</option>
@@ -45,36 +51,20 @@
 
       <%
 
-        String cat = request.getParameter("categoria");
-        String busqueda = request.getParameter("nombre");
-        String strQry2 = null;
-
         Base bd = new Base();
-
-        if (cat == null)
-          cat = "";
-        if (busqueda == null)
-          busqueda = "";
 
         try {
           bd.conectar();
-
-          if (Objects.equals(cat, "")){
-            strQry2 = "select imagen, nombre, categoria, descripcion, precio, existencias, id_regalo from producto " +
-                    "where nombre like '%"+busqueda+"%';";
-          }else {
-            strQry2 = "select imagen, nombre, categoria, descripcion, precio, existencias, id_regalo from producto " +
-                    "where categoria = '"+cat+"' and nombre like '%"+busqueda+"%';";
-          }
+          String strQry = "select imagen, nombre, categoria, descripcion, precio, existencias, id_regalo from producto;";
 
           ResultSet rs = null;
 
-          rs = bd.consulta(strQry2);
+          rs = bd.consulta(strQry);
 
           int ex;
           while (rs.next()) {
 
-              ex = Integer.parseInt(rs.getString(6));
+            ex = Integer.parseInt(rs.getString(6));
       %>
 
       <div class="product-card">
@@ -83,6 +73,18 @@
         <p class="product-category"><strong>Categoría:</strong> <%=rs.getString(3)%></p>
         <p class="product-description"><%=rs.getString(4)%></p>
         <p class="product-price"><strong>Precio:</strong> $<%=rs.getString(5)%></p>
+        <% if (ex >= 1) { %>
+
+<button class="add-to-cart-btn"
+        onclick="location.href='Gestion_Anfi_lista_A.jsp?id=<%=idusuario%>&nombre=<%=URLEncoder.encode(rs.getString(2), "UTF-8")%>&categoria=<%=URLEncoder.encode(rs.getString(3), "UTF-8")%>'">
+    Disponible
+</button>
+
+<% } else { %>
+
+<button class="add-to-cart-btn" data-id="<%=rs.getString(7)%>" disabled>No disponible</button>
+
+<% } %>
       </div>
 
       <%
@@ -95,13 +97,6 @@
         }
       %>
 
-      <script>
-        if ("<%=busqueda%>" !== "")
-          document.getElementById('nombre').value = '<%=busqueda%>';
-
-        if ("<%=cat%>" !== "")
-          document.getElementById('categoria').value = '<%=cat%>';
-      </script>
     </main>
     <!--<script src="scripts/Catalogo.js"></script>-->
     <!-- Pie de página -->

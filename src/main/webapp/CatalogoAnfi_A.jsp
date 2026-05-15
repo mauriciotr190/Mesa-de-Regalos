@@ -1,6 +1,7 @@
 <%@ page import="basesita.Base" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.util.Objects" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,13 +12,17 @@
     <link rel="stylesheet" href="Estilos/Catalogo.css" />
   </head>
   <body>
+      
+      <%
+String idusuario = request.getParameter("id");
+%>
     <!-- Encabezado -->
     <div id="EncabezadoId"></div>
     <script src="scripts/Encabezado.js"></script>
     <main id="product-container" class="product-container">
       <div class="fullfe">
         <h2>Buscar Regalos</h2>
-        <form id="form-buscar" method="post" action="Catalogo_A.jsp">
+        <form id="form-buscar" method="post" action="CatalogoAnfi_A.jsp?id=<%=idusuario%>">
           <label for="categoria">Categoría:</label>
           <select id="categoria" name="categoria">
             <option value="">-- Seleccionar --</option>
@@ -83,6 +88,18 @@
         <p class="product-category"><strong>Categoría:</strong> <%=rs.getString(3)%></p>
         <p class="product-description"><%=rs.getString(4)%></p>
         <p class="product-price"><strong>Precio:</strong> $<%=rs.getString(5)%></p>
+                <% if (ex >= 1) { %>
+
+        <button class="add-to-cart-btn"
+                onclick="location.href='Gestion_Anfi_lista_A.jsp?id=<%=idusuario%>&nombre=<%=URLEncoder.encode(rs.getString(2), "UTF-8")%>&categoria=<%=URLEncoder.encode(rs.getString(3), "UTF-8")%>'">
+            Disponible
+        </button>
+
+        <% } else { %>
+
+        <button class="add-to-cart-btn" data-id="<%=rs.getString(7)%>" disabled>No disponible</button>
+
+        <% } %>
       </div>
 
       <%
